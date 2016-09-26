@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
         // Using reduce operator - It acts like an accumulate operator
         Observable.just(mList)
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(geturls)
-                .reduce(mergeRoutine)
-                .subscribe(mTextViewSubscriber);
+                .flatMap(Observable::from)
+                .reduce((s1, s2) -> String.format("%s || %s", s1, s2))
+                .subscribe(mTextView::setText);
     }
 
     private void setupDummyList() {
